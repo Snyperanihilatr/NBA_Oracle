@@ -19,7 +19,7 @@ public class KNN {
 		this.knn = new KNearestNeighbors(n);
 		this.data = new DefaultDataset();
 		this.testing = test;
-		classifyData(d);
+		classifyBoatData(d);
 		importData(d);
 		this.knn.buildClassifier(this.data);
 	}
@@ -38,7 +38,7 @@ public class KNN {
 		DenseInstance instance;
 		for(InfoRow row: dataSet){
 			instance = new DenseInstance(row.getRawValues());
-			instance.setClassValue( Double.parseDouble(row.getInfoRow().get("won")));
+			instance.setClassValue( Double.parseDouble(row.getInfoRow().get("boatcount")));
 			this.data.add(instance);
 		}
 	}
@@ -51,7 +51,7 @@ public class KNN {
 		double temp= 0.0;
 		for(InfoRow row: dataSet){
 			for(String key:row.getInfoRow().keySet()){
-				if(key =="won"){
+				if(key =="boatcount"){
 					temp = Double.parseDouble(row.getInfoRow().get(key));
 					if(temp> max)
 						max = temp;
@@ -71,7 +71,7 @@ public class KNN {
 	private int classify(double dataConversion, double minValue, double maxValue) {
 
 		int count = 0;
-		int classes = 10;
+		int classes = 4;
 		double currentValue = minValue;
 		double change = (maxValue - minValue)/classes;
 		while (currentValue <= dataConversion && currentValue != maxValue) {
@@ -82,31 +82,31 @@ public class KNN {
 	}
 	//Gets ranges of each class
 	private void getRanges(double min, double max){
-		double change = (max-min)/10;
+		double change = (max-min)/4;
 		double temp = min;
 		int upper = 0;
-		this.ranges[0] =">="+min+" wins";
-		for(int i =1;i<=10;i++){
+		this.ranges[0] =">="+min+" boats";
+		for(int i =1;i<=3;i++){
 			
 			upper = (int)temp+(int)change;
-			this.ranges[i] = Integer.toString((int)(temp+1))+"-"+Integer.toString(upper)+ " wins";
+			this.ranges[i] = Integer.toString((int)(temp+1))+"-"+Integer.toString(upper)+ " boats";
 			temp = upper;
 		}
-		this.ranges[10] = Integer.toString((int)temp+1)+"< wins";
+		this.ranges[4] = Integer.toString((int)temp+1)+"< boats";
 
 		
 	}
 	//Classifies Boat Data in 4 classes
-	private void classifyData(Vector<InfoRow> dataSet){
+	private void classifyBoatData(Vector<InfoRow> dataSet){
 
 		String newValue;
 		double minMax[] = getMinMax(dataSet);
 		getRanges(minMax[0],minMax[1]);
-		double winPercent = 0.0;
+		double boatData = 0.0;
 		for(InfoRow row:dataSet){
-			winPercent = Double.parseDouble(row.getInfoRow().get("won"));
-			newValue = Double.toString(classify(winPercent,minMax[0],minMax[1]));
-			row.getInfoRow().put("won", newValue );
+			boatData = Double.parseDouble(row.getInfoRow().get("boatcount"));
+			newValue = Double.toString(classify(boatData,minMax[0],minMax[1]));
+			row.getInfoRow().put("boatcount", newValue );
 			
 		}
 		
