@@ -1,5 +1,4 @@
 INDEX VERSION 1.127+C:\Users\chris\Documents\GitHub\NBA_Oracle\.metadata\.plugins\org.eclipse.jdt.core
-54085127.index
 1679064577.index
 3152152696.index
 4003084442.index
