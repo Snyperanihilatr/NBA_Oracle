@@ -19,7 +19,7 @@ public class KNN {
 		this.knn = new KNearestNeighbors(n);
 		this.data = new DefaultDataset();
 		this.testing = test;
-		classifyWinData(d);
+		classifyData(d);
 		importData(d);
 		this.knn.buildClassifier(this.data);
 	}
@@ -67,7 +67,7 @@ public class KNN {
 				
 			
 	}
-	//Finds Specific class for win percentage data
+	//Finds Specific class for boat data
 	private int classify(double dataConversion, double minValue, double maxValue) {
 
 		int count = 0;
@@ -86,7 +86,7 @@ public class KNN {
 		double temp = min;
 		int upper = 0;
 		this.ranges[0] =">="+min+" wins";
-		for(int i =1;i<=9;i++){
+		for(int i =1;i<=10;i++){
 			
 			upper = (int)temp+(int)change;
 			this.ranges[i] = Integer.toString((int)(temp+1))+"-"+Integer.toString(upper)+ " wins";
@@ -96,16 +96,16 @@ public class KNN {
 
 		
 	}
-	//Classifies Win Data in 10 classes
-	private void classifyWinData(Vector<InfoRow> dataSet){
+	//Classifies Boat Data in 4 classes
+	private void classifyData(Vector<InfoRow> dataSet){
 
 		String newValue;
 		double minMax[] = getMinMax(dataSet);
 		getRanges(minMax[0],minMax[1]);
-		double boatData = 0.0;
+		double winPercent = 0.0;
 		for(InfoRow row:dataSet){
-			boatData = Double.parseDouble(row.getInfoRow().get("won"));
-			newValue = Double.toString(classify(boatData,minMax[0],minMax[1]));
+			winPercent = Double.parseDouble(row.getInfoRow().get("won"));
+			newValue = Double.toString(classify(winPercent,minMax[0],minMax[1]));
 			row.getInfoRow().put("won", newValue );
 			
 		}
@@ -142,22 +142,6 @@ public class KNN {
 
 	public void setRanges(String[] ranges) {
 		this.ranges = ranges;
-	}
-	
-	//Remove losses column and divide all other columns by 82
-	private void manipulateData(Vector<InfoRow> dataSet){
-		double temp = 0.0;
-		for(InfoRow row: dataSet){
-			for(String key:row.getInfoRow().keySet()){
-				if(key == "lost"){
-					row.getInfoRow().remove(key);
-				}
-				else
-					temp = Double.parseDouble(row.getInfoRow().get(key));
-					temp = temp / 82;
-					row.getInfoRow().put(key, String.valueOf(temp));
-			}
-		}
 	}
 	
 	
