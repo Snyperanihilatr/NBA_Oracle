@@ -344,3 +344,8 @@ java.io.FileNotFoundException: C:\Users\chris\Documents\GitHub\NBA_Oracle\NBA Or
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:669)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:608)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1515)
+
+!ENTRY org.eclipse.core.resources 2 2 2016-04-07 12:08:24.493
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2016-04-07 12:08:24.493
+!MESSAGE The project description file (.project) for 'NBA Oracle' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
