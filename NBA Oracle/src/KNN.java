@@ -144,6 +144,22 @@ public class KNN {
 		this.ranges = ranges;
 	}
 	
+	//Remove losses column and divide all other columns by 82
+	private void manipulateData(Vector<InfoRow> dataSet){
+		double temp = 0.0
+		for(InfoRow row: dataSet){
+			for(String key:row.getInfoRow().keySet()){
+				if(key == "lost"){
+					row.getInfoRow().remove(key);
+				}
+				else
+					temp = row.getInfoRow().get(key);
+					temp = temp / 82;
+					row.getInfoRow().put(key, temp);
+			}
+		}
+	}
+	
 	
 
 }
